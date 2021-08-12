@@ -1,1 +1,3 @@
-# discourse_groups_from_api
+# Panel groups
+
+Synchronize groups with API
