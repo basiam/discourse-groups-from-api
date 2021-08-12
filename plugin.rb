@@ -23,17 +23,6 @@ module ::PanelGroups
     query = "UPDATE groups g SET user_count = (SELECT COUNT(user_id) FROM group_users gu WHERE gu.group_id = g.id)"
 
     ActiveRecord::Base.connection_pool.with_connection { |con| con.exec_query(query) }
-
-    # ldap_group_names = Array.new
-    # ldap.search(:base => base_dn) do |entry|
-    #   self.update_from_panel_entry entry
-    #     ldap_group_names << entry.cn.first
-    #   end
-    #   orphaned_groups = GroupCustomField.where(name: 'external_id')
-    #                                       .where.not(value: ldap_group_names)
-    #   orphaned_groups.each do |f|
-    #     delete_group f.group
-    #     end
   end
 
   def self.update_from_panel_entry(name, group_external_id)
@@ -66,20 +55,6 @@ module ::PanelGroups
     group.users = members
     group.save!
   end
-
-  # def self.delete_group(group)
-  #    puts "ldap_group: Deleting '#{group.name}'"
-  #
-  #    if group.custom_fields.has_key? 'category_id'
-  #      # Hide category but do not delete it, in case it has to be recovered
-  #      cat = Category.find group.custom_fields['category_id']
-  #      cat.set_permissions(:admins => :readonly)
-  #      cat.parent_category = Category.find(
-  #        SiteSetting.ldap_group_deleted_category_parent_id)
-  #      cat.save!
-  #    end
-  #    group.destroy
-  #  end
 end
 
 after_initialize do
