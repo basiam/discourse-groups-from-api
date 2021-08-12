@@ -1,0 +1,5 @@
+pl_PL:
+  site_settings:
+    panel_uri: 'URL panelu'
+    panel_token: 'Token panelu'
+    panel_groups_enabled: "Włącz synchronizację grup z panelu"

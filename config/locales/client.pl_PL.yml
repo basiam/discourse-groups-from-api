@@ -1,0 +1,7 @@
+pl_PL:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          panel_groups: "Grupy z panelu"
+

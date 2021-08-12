@@ -1,0 +1,6 @@
+en:
+  site_settings:
+    panel_uri: 'panel URL'
+    panel_token: 'panel Token'
+    panel_groups_enabled: "Enable"
+
