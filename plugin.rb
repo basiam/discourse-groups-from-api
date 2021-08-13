@@ -14,7 +14,7 @@ module ::PanelGroups
   def self.update_groups!
     return unless SiteSetting.panel_groups_enabled
 
-    groups = JSON.parse(open(self.connect() + "/api/v2/groups?token=" + SiteSetting.panel_token).read)
+    groups = JSON.parse(URI.open(self.connect() + "/api/v2/groups?token=" + SiteSetting.panel_token).read)
 
     groups.each_pair do |name, external_id|
       self.update_from_panel_entry name, external_id
@@ -26,7 +26,7 @@ module ::PanelGroups
   end
 
   def self.update_from_panel_entry(name, group_external_id)
-    users = JSON.parse(open(self.connect() + "/api/v2/groups/#{group_external_id}?token=" + SiteSetting.panel_token).read)
+    users = JSON.parse(URI.open(self.connect() + "/api/v2/groups/#{group_external_id}?token=" + SiteSetting.panel_token).read)
     members = users.collect do |m|
       record = SingleSignOnRecord.find_by external_id: m
       next unless record
