@@ -8,16 +8,18 @@ require 'json'
 
 after_initialize do
   [
-   '../lib/members_sync.rb'
+   '../lib/members_sync.rb',
+   '../lib/ex_members_unsubscribe.rb'
   ].each { |path| load File.expand_path(path, __FILE__) }
 
   module ::PanelGroups
     class UpdateJob < ::Jobs::Scheduled
-      every 1.day
+      every 6.hours
 
       def execute(args)
         return unless SiteSetting.panel_groups_enabled
-        PanelGroups::MemberSync.update_groups!
+
+        PanelGroups::MembersSync.update_groups!
       end
     end
   end
