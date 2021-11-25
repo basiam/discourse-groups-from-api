@@ -17,7 +17,8 @@ module PanelGroups
       mailing_list_mode: false,
       email_digests: false,
       allow_private_messages: false,
-      email_always: false,
+      like_notification_frequency: 3,
+      notification_level_when_replying: 2,
       email_in_reply_to: false,
       email_level: 2,
       email_messages_level: 2
