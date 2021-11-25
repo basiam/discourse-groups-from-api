@@ -14,12 +14,13 @@ after_initialize do
 
   module ::PanelGroups
     class UpdateJob < ::Jobs::Scheduled
-      every 6.hours
+      every 3.hours
 
       def execute(_args)
         return unless SiteSetting.panel_groups_enabled
 
         PanelGroups::MembersSync.update_groups!
+        PanelGroups::ExMembersUnsubscribe.run
       end
     end
   end
