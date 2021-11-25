@@ -1,6 +1,5 @@
 module PanelGroups
   class MembersSync
-
     def self.connect
       SiteSetting.panel_uri
     end
@@ -9,11 +8,11 @@ module PanelGroups
       return unless SiteSetting.panel_groups_enabled
 
       groups = JSON.parse(
-        URI.open(self.connect + "/api/v2/groups?token=" + SiteSetting.panel_token).read
+        URI.open(connect + "/api/v2/groups?token=" + SiteSetting.panel_token).read
       )
 
       groups.each_pair do |name, external_id|
-        self.update_from_panel_entry(name, external_id)
+        update_from_panel_entry(name, external_id)
       end
 
       query = "UPDATE groups g SET user_count = (SELECT COUNT(user_id) FROM group_users gu WHERE gu.group_id = g.id)"
@@ -23,7 +22,7 @@ module PanelGroups
 
     def self.update_from_panel_entry(name, group_external_id)
       users = JSON.parse(
-        URI.open(self.connect + "/api/v2/groups/#{group_external_id}?token=" + SiteSetting.panel_token).read
+        URI.open(connect + "/api/v2/groups/#{group_external_id}?token=" + SiteSetting.panel_token).read
       )
       members = users.collect do |m|
         record = SingleSignOnRecord.find_by(external_id: m)
