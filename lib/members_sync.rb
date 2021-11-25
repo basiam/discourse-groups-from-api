@@ -8,7 +8,7 @@ module PanelGroups
       return unless SiteSetting.panel_groups_enabled
 
       groups = JSON.parse(
-        URI.open(connect + "/api/v2/groups?token=" + SiteSetting.panel_token).read
+        URI.open("#{connect}/api/v2/groups?token=#{SiteSetting.panel_token}").read
       )
 
       groups.each_pair do |name, external_id|
@@ -37,7 +37,7 @@ module PanelGroups
         name: 'external_id',
         value: group_external_id
       )
-      if field && field.group
+      if field&.group
         group = field.group
       else
         g_name = UserNameSuggester.suggest(name)

@@ -1,12 +1,14 @@
-class PanelGroups::ExMembersUnsubscribe
-  def self.run
-    return unless SiteSetting.panel_groups_enabled
+module PanelGroups
+  class ExMembersUnsubscribe
+    def self.run
+      return unless SiteSetting.panel_groups_enabled
 
-    ex_group = Group.find_by(name: 'byly_czlonek')
-    return unless ex_group
+      ex_group = Group.find_by(name: 'byly_czlonek')
+      return unless ex_group
 
-    ex_group.users.each do |user|
-      disable_email_notification_for(user)
+      ex_group.users.each do |user|
+        disable_email_notification_for(user)
+      end
     end
   end
 
