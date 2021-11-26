@@ -10,24 +10,24 @@ module PanelGroups
         disable_email_notification_for(user)
       end
     end
-  end
 
-  def self.disable_email_notification_for(user)
-    user.user_option.update(
-      mailing_list_mode: false,
-      email_digests: false,
-      allow_private_messages: false,
-      like_notification_frequency: 3,
-      notification_level_when_replying: 2,
-      email_in_reply_to: false,
-      email_level: 2,
-      email_messages_level: 2
-    )
-    user.category_users.update_all(
-      notification_level: CategoryUser.notification_levels[:muted]
-    )
-    user.tag_users.update_all(
-      notification_level: TagUser.notification_levels[:muted]
-    )
+    def self.disable_email_notification_for(user)
+      user.user_option.update(
+        mailing_list_mode: false,
+        email_digests: false,
+        allow_private_messages: false,
+        like_notification_frequency: 3,
+        notification_level_when_replying: 2,
+        email_in_reply_to: false,
+        email_level: 2,
+        email_messages_level: 2
+      )
+      user.category_users.update_all(
+        notification_level: CategoryUser.notification_levels[:muted]
+      )
+      user.tag_users.update_all(
+        notification_level: TagUser.notification_levels[:muted]
+      )
+    end
   end
 end
