@@ -14,7 +14,7 @@ after_initialize do
 
   module ::PanelGroups
     class UpdateJob < ::Jobs::Scheduled
-      every 3.hours
+      every 6.hours
 
       def execute(_args)
         return unless SiteSetting.panel_groups_enabled

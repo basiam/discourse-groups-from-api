@@ -21,16 +21,11 @@ module PanelGroups
     end
 
     def self.update_from_panel_entry(name, group_external_id)
-      users = JSON.parse(
+      external_ids = JSON.parse(
         URI.open(connect + "/api/v2/groups/#{group_external_id}?token=" + SiteSetting.panel_token).read
       )
-      members = users.collect do |m|
-        record = SingleSignOnRecord.find_by(external_id: m)
-        next unless record
-
-        User.find(record.user_id)
-      end
-      members.compact! # remove nils from users not in discourse
+      user_ids = SingleSignOnRecord.where(external_id: external_ids).select(:user_id).collect(&:user_id)
+      members = User.where(id: user_ids)
 
       # Find existing group or create a new one
       field = GroupCustomField.find_by(

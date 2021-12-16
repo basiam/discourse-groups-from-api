@@ -6,7 +6,7 @@ module PanelGroups
       ex_group = Group.find_by(name: 'byly_czlonek')
       return unless ex_group
 
-      ex_group.users.each do |user|
+      ex_group.users.find_each do |user|
         disable_email_notification_for(user)
       end
     end
