@@ -13,7 +13,7 @@ after_initialize do
   ].each { |path| load File.expand_path(path, __FILE__) }
 
   module ::PanelGroups
-    class MembersSyncJob <::Jobs::Scheduled
+    class MembersSyncJob < ::Jobs::Scheduled
       every 3.hours
 
       def execute(_args)
