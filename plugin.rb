@@ -13,13 +13,22 @@ after_initialize do
   ].each { |path| load File.expand_path(path, __FILE__) }
 
   module ::PanelGroups
-    class UpdateJob < ::Jobs::Scheduled
-      every 6.hours
+    class MembersSyncJob <::Jobs::Scheduled
+      every 3.hours
 
       def execute(_args)
         return unless SiteSetting.panel_groups_enabled
 
         PanelGroups::MembersSync.update_groups!
+      end
+    end
+
+    class ExMembersUnsubscribeJob < ::Jobs::Scheduled
+      every 3.days
+
+      def execute(_args)
+        return unless SiteSetting.panel_groups_enabled
+
         PanelGroups::ExMembersUnsubscribe.run
       end
     end
